@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ChangeInSocket : MonoBehaviour
 {
     XRSocketInteractor socketInteractor;
+    Color defaultColor;
 
     private void OnEnable()
     {
@@ -19,11 +20,16 @@ public class ChangeInSocket : MonoBehaviour
     }
     public void ObjectAttachedEvent(SelectEnterEventArgs args)
     {
-        args.interactableObject.transform.GetComponent<MeshRenderer>().material.color = Color.white;
+        Material materialOfObject = args.interactableObject.transform.GetComponent<MeshRenderer>().material;
+        defaultColor = materialOfObject.color;
+
+        materialOfObject.color = Color.white;
     }
     public void ObjectDetachedEvent(SelectExitEventArgs args)
     {
-        args.interactableObject.transform.GetComponent<MeshRenderer>().material.color = Color.red;
+        Material materialOfObject = args.interactableObject.transform.GetComponent<MeshRenderer>().material;
+
+        materialOfObject.color = defaultColor;
     }
 
 }
